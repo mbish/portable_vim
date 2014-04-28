@@ -32,3 +32,11 @@ if filereadable(expand("~/.vimcolors"))
 endif
 
 let g:miniBufExplCheckDupeBufs = 0
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%80v.\+/
+
+autocmd Syntax html call SyntaxRange#Include("<markdown>", "</markdown>", "markdown")
+autocmd Syntax html call SyntaxRange#Include("```python", "```", "python")
+autocmd Syntax markdown call SyntaxRange#Include("```python", "```", "python")
+set conceallevel=2
+syntax match Todo /{code\w\*}/ conceal

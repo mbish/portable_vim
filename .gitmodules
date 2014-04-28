@@ -10,3 +10,9 @@
 [submodule "bundle/syntastic"]
 	path = bundle/syntastic
 	url = https://github.com/scrooloose/syntastic.git
+[submodule "bundle/SyntaxRange"]
+	path = bundle/SyntaxRange
+	url = https://github.com/vim-scripts/SyntaxRange
+[submodule "bundle/vim-markdown"]
+	path = bundle/vim-markdown
+	url = https://github.com/plasticboy/vim-markdown.git
