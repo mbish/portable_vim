@@ -27,8 +27,8 @@ set history=50
 set hidden
 set wildmode=list:longest,full
 
-if filereadable(expand("~/.vimcolors"))
-    source ~/.vimcolors
+if filereadable(expand("~/.colors.vim"))
+    source ~/.colors.vim
 endif
 
 let g:miniBufExplCheckDupeBufs = 0
@@ -40,3 +40,7 @@ autocmd Syntax html call SyntaxRange#Include("```python", "```", "python")
 autocmd Syntax markdown call SyntaxRange#Include("```python", "```", "python")
 set conceallevel=2
 syntax match Todo /{code\w\*}/ conceal
+
+if filereadable(expand("~/.local.vim"))
+    source ~/.local.vim
+endif
