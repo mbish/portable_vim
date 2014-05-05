@@ -26,12 +26,16 @@ set incsearch
 set history=50
 set hidden
 set wildmode=list:longest,full
+let g:EasyMotion_smartcase = 1
 
 if filereadable(expand("~/.colors.vim"))
     source ~/.colors.vim
 endif
 
 let g:miniBufExplCheckDupeBufs = 0
+imap <c-l> <Esc><Plug>(easymotion-bd-w)
+nmap <c-l> <Plug>(easymotion-bd-w)
+nmap <c-j> <Plug>(easymotion-bd-s)
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%80v.\+/
 
@@ -44,3 +48,5 @@ syntax match Todo /{code\w\*}/ conceal
 if filereadable(expand("~/.local.vim"))
     source ~/.local.vim
 endif
+hi link EasyMotionShade  Comment
+hi link EasyMotionTarget Underlined
