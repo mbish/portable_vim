@@ -42,6 +42,7 @@ match OverLength /\%80v.\+/
 autocmd Syntax html call SyntaxRange#Include("<markdown>", "</markdown>", "markdown")
 autocmd Syntax html call SyntaxRange#Include("```python", "```", "python")
 autocmd Syntax markdown call SyntaxRange#Include("```python", "```", "python")
+autocmd Syntax perl call SyntaxRange#Include("<<SQL;", "SQL", "sql")
 set conceallevel=2
 syntax match Todo /{code\w\*}/ conceal
 
@@ -50,3 +51,4 @@ if filereadable(expand("~/.local.vim"))
 endif
 hi link EasyMotionShade  Comment
 hi link EasyMotionTarget Underlined
+let g:loaded_diminactive=1
