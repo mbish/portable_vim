@@ -52,3 +52,4 @@ endif
 hi link EasyMotionShade  Comment
 hi link EasyMotionTarget Underlined
 let g:loaded_diminactive=1
+autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
