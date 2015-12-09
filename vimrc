@@ -37,7 +37,7 @@ imap <c-l> <Esc><Plug>(easymotion-bd-w)
 nmap <c-l> <Plug>(easymotion-bd-w)
 nmap <c-j> <Plug>(easymotion-bd-s)
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
-match OverLength /\%80v.\+/
+match OverLength /\%80v/
 
 autocmd Syntax html call SyntaxRange#Include("<markdown>", "</markdown>", "markdown")
 autocmd Syntax html call SyntaxRange#Include("```python", "```", "python")
@@ -53,3 +53,4 @@ hi link EasyMotionShade  Comment
 hi link EasyMotionTarget Underlined
 let g:loaded_diminactive=1
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+colorscheme slate
