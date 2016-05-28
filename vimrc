@@ -6,6 +6,7 @@ nmap ; a
 nmap - :bp<CR>
 nmap = :bn<CR>
 nmap <c-n> :MBEFocus<CR>
+nmap <F2> :NERDTreeToggle<CR>
 nmap \ gt
 nmap \| gT
 nmap ds bdw
@@ -58,9 +59,13 @@ hi link EasyMotionTarget Underlined
 let g:loaded_diminactive=1
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 colorscheme slate
-hi MBENormal               guifg=#808080 guibg=fg
-hi MBEChanged              guifg=#CD5907 guibg=fg ctermbg=red ctermfg=yellow
+hi MBENormal               guifg=#808080 guibg=fg ctermfg=DarkBlue
+hi MBEChanged              guifg=#CD5907 guibg=fg ctermbg=red ctermfg=DarkBlue
 hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg
 hi MBEVisibleChanged       guifg=#F1266F guibg=fg
 hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg ctermfg=white
 hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
+hi IncSearch               term=reverse ctermfg=black ctermbg=10 gui=reverse guifg=green guibg=black
+hi Search                  term=reverse ctermfg=black ctermbg=cyan guifg=wheat guibg=peru
+let NERDTreeQuitOnOpen=1
+let g:syntastic_pug_checkers = ['pug-lint']
