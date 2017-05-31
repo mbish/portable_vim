@@ -49,3 +49,21 @@
 [submodule "bundle/vim-pug"]
 	path = bundle/vim-pug
 	url = git://github.com/digitaltoad/vim-pug.git
+[submodule "bundle/slimv"]
+	path = bundle/slimv
+	url = https://github.com/kovisoft/slimv
+[submodule "bundle/vim-surround.git"]
+	path = bundle/vim-surround.git
+	url = https://github.com/tpope/vim-surround.git
+[submodule "bundle/vim-javascript"]
+	path = bundle/vim-javascript
+	url = https://github.com/pangloss/vim-javascript.git
+[submodule "bundle/tabular"]
+	path = bundle/tabular
+	url = https://github.com/godlygeek/tabular.git
+[submodule "bundle/typescript-vim"]
+	path = bundle/typescript-vim
+	url = https://github.com/leafgarland/typescript-vim.git
+[submodule "bundle/Nvim-R"]
+	path = bundle/Nvim-R
+	url = https://github.com/jalvesaq/Nvim-R.git
