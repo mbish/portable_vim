@@ -32,6 +32,7 @@ set hidden
 set wildmode=list:longest,full
 let g:EasyMotion_smartcase = 1
 let g:syntastic_javascript_checkers = ['eslint']
+let g:ackprg = 'ag --nogroup --nocolor --column'
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType json setlocal shiftwidth=2 tabstop=2
 
@@ -43,7 +44,7 @@ let g:miniBufExplCheckDupeBufs = 0
 imap <c-l> <Esc><Plug>(easymotion-bd-w)
 nmap <c-l> <Plug>(easymotion-bd-w)
 nmap <c-j> <Plug>(easymotion-bd-s)
-nmap <c-p> :Ack --ignore-dir .meteor 
+nmap <c-p> :Ack 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%80v/
 
