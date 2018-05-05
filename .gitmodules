@@ -67,3 +67,9 @@
 [submodule "bundle/Nvim-R"]
 	path = bundle/Nvim-R
 	url = https://github.com/jalvesaq/Nvim-R.git
+[submodule "bundle/ale"]
+	path = bundle/ale
+	url = https://github.com/w0rp/ale.git
+[submodule "bundle/codi.vim"]
+	path = bundle/codi.vim
+	url = https://github.com/metakirby5/codi.vim.git

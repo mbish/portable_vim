@@ -30,9 +30,11 @@ set incsearch
 set history=50
 set hidden
 set wildmode=list:longest,full
+set tags=~/mytags
 let g:EasyMotion_smartcase = 1
 let g:syntastic_javascript_checkers = ['eslint']
 let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:ale_lint_on_text_changed = 'never'
 autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 autocmd FileType json setlocal shiftwidth=2 tabstop=2
 
@@ -78,6 +80,7 @@ let g:syntastic_yaml_checkers = ['yamllint']
 autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 let g:slimv_swank_cmd = '! tmux new-window -d -n REPL-SBCL "sbcl --load ~/.vim/bundle/slimv/slime/start-swank.lisp"'
 let g:slimv_python = 'python2'
+let g:syntastic_python_checkers = ['flake8']
 
 set updatetime=500
 set mouse-=a
