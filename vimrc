@@ -14,6 +14,10 @@ nmap \| gT
 nmap ds bdw
 nmap <C-W>e <C-W>=-=
 nmap <C-I> bi
+imap <C-d> <Esc>:w<CR>
+nmap <C-d> <Esc>:w<CR>
+nmap <F7> :mks! /tmp/session.vim <CR>:wqa<CR>
+nmap <F8> :let root = getcwd()<CR>:exec system("cat /tmp/session.vim \| grep -P 'badd\|cd'") \| exec 'cd ' . root<CR>
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
