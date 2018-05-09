@@ -6,20 +6,20 @@ syntax on
 syntax match Todo /{code\w\*}/ conceal
 
 " Key bindings
-imap <C-k> <Esc>
-imap <C-d> <Esc>:w<CR>
-nmap ; a
-nmap - :bp<CR>
-nmap = :bn<CR>
-nmap _ :tabnext<CR>
-nmap + :tabprevious<CR>
-nmap \ gt
-nmap \| gT
-nmap ds bdw
-nmap <C-W>e <C-W>=-=
-nmap <C-I> bi
-nmap <C-d> <Esc>:w<CR>
-
+" imap <C-k> <Esc>
+" imap <C-d> <Esc>:w<CR>
+" nmap ; a
+" nmap - :bp<CR>
+" nmap = :bn<CR>
+" nmap _ :tabnext<CR>
+" nmap + :tabprevious<CR>
+" nmap \ gt
+" nmap \| gT
+" nmap ds bdw
+" nmap <C-W>e <C-W>=-=
+" nmap <C-I> bi
+" nmap <C-d> <Esc>:w<CR>
+"
 "" package specific key bindings
 nmap <c-n> :MBEFocus<CR>
 nmap <F2> :NERDTreeToggle<CR>
@@ -27,6 +27,10 @@ imap <c-l> <Esc><Plug>(easymotion-bd-w)
 nmap <c-l> <Plug>(easymotion-bd-w)
 nmap <c-j> <Plug>(easymotion-bd-s)
 nmap <c-p> :Ack 
+
+"" leader bindings
+nmap <space> <leader>
+nmap <leader>q :bd<CR>
 
 "" esoteric keybindings
 nmap <F7> :mks! /tmp/session.vim <CR>:wqa<CR>
