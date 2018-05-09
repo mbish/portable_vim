@@ -6,31 +6,34 @@ syntax on
 syntax match Todo /{code\w\*}/ conceal
 
 " Key bindings
-" imap <C-k> <Esc>
-" imap <C-d> <Esc>:w<CR>
-" nmap ; a
-" nmap - :bp<CR>
-" nmap = :bn<CR>
-" nmap _ :tabnext<CR>
-" nmap + :tabprevious<CR>
-" nmap \ gt
-" nmap \| gT
-" nmap ds bdw
-" nmap <C-W>e <C-W>=-=
-" nmap <C-I> bi
-" nmap <C-d> <Esc>:w<CR>
-"
+imap <C-k> <Esc>
+imap <C-d> <Esc>:w<CR>
+nmap ; a
+nmap - :bp<CR>
+nmap = :bn<CR>
+nmap _ :tabnext<CR>
+nmap + :tabprevious<CR>
+nmap \ gt
+nmap \| gT
+nmap ds bdw
+nmap <C-W>e <C-W>=-=
+nmap <C-I> bi
+nmap <C-d> <Esc>:w<CR>
+nmap ö :r!xclip -o<CR>
+
+
 "" package specific key bindings
 nmap <c-n> :MBEFocus<CR>
 nmap <F2> :NERDTreeToggle<CR>
 imap <c-l> <Esc><Plug>(easymotion-bd-w)
-nmap <c-l> <Plug>(easymotion-bd-w)
-nmap <c-j> <Plug>(easymotion-bd-s)
+map <c-l> <Plug>(easymotion-bd-w)
+map <c-j> <Plug>(easymotion-bd-s)
 nmap <c-p> :Ack 
 
 "" leader bindings
 nmap <space> <leader>
 nmap <leader>q :bd<CR>
+nmap <silent> <Leader>t :call <SID>StripTrailingWhitespace()<CR>
 
 "" esoteric keybindings
 nmap <F7> :mks! /tmp/session.vim <CR>:wqa<CR>
@@ -93,6 +96,9 @@ augroup vimrc
     autocmd Syntax perl call SyntaxRange#Include("<<SQL;", "SQL", "sql")
 
     autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
+
+    autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
+    autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 augroup END
 
 
@@ -108,8 +114,22 @@ hi IncSearch               term=reverse ctermfg=black ctermbg=10 gui=reverse gui
 hi Search                  term=reverse ctermfg=black ctermbg=red guifg=black guibg=red
 hi OverLength ctermbg=white ctermfg=white guibg=#592929
 hi ColorColumn ctermbg=235 guibg=#2c2d27
+hi EOLWS ctermbg=red guibg=red
 
 match OverLength /\%80v/
+
+" Functions
+function! <SID>StripTrailingWhitespace()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
 
 
 " External Config
