@@ -86,13 +86,6 @@ let g:R_applescript = 0
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 
-let g:ycm_server_keep_logfiles = 1
-let g:ycm_server_log_level = 'debug'
-let g:ycm_warning_symbol = '.'
-let g:ycm_error_symbol = '..'
-let g:ycm_server_use_vim_stdout = 1
-
-
 
 " Autocmds
 augroup vimrc
