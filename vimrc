@@ -34,6 +34,8 @@ nmap <c-p> :Ack
 nmap <space> <leader>
 nmap <leader>q :bd<CR>
 nmap <silent> <Leader>t :call <SID>StripTrailingWhitespace()<CR>
+nmap <leader>g :YcmCompleter GoTo<CR>
+nmap <leader>r :YcmCompleter GoToReferences<CR>
 
 "" esoteric keybindings
 nmap <F7> :mks! /tmp/session.vim <CR>:wqa<CR>
@@ -55,7 +57,6 @@ set incsearch
 set history=50
 set hidden
 set wildmode=list:longest,full
-set tags=~/mytags
 set conceallevel=2
 set updatetime=500
 set mouse-=a
@@ -82,6 +83,15 @@ let g:NERDTreeQuitOnOpen=1
 
 let g:R_in_buffer = 0
 let g:R_applescript = 0
+
+let g:ycm_collect_identifiers_from_tags_files = 1
+
+let g:ycm_server_keep_logfiles = 1
+let g:ycm_server_log_level = 'debug'
+let g:ycm_warning_symbol = '.'
+let g:ycm_error_symbol = '..'
+let g:ycm_server_use_vim_stdout = 1
+
 
 
 " Autocmds
