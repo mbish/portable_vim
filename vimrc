@@ -1,3 +1,4 @@
+scriptencoding utf-8
 call pathogen#infect()
 
 colorscheme slate
@@ -36,12 +37,15 @@ nmap <leader>q :bd<CR>
 nmap <silent> <Leader>t :call <SID>StripTrailingWhitespace()<CR>
 nmap <leader>g :YcmCompleter GoTo<CR>
 nmap <leader>r :YcmCompleter GoToReferences<CR>
+nmap <leader>f :CtrlP<CR>
+nmap <leader>s :CtrlPBuffer<CR>
 
 "" esoteric keybindings
 nmap <F7> :mks! /tmp/session.vim <CR>:wqa<CR>
 nmap <F8> :let root = getcwd()<CR>:exec system("cat /tmp/session.vim \| grep -P 'badd\|cd'") \| exec 'cd ' . root<CR>
 
 " Options
+set noshowmode
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -86,7 +90,24 @@ let g:R_applescript = 0
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 
+let g:lightline = {
+      \ 'colorscheme': 'landscape',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#statusline'
+      \ },
+      \ }
 
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|__pycache__)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
+
+let g:ctrlp_map = 'NONE'
 " Autocmds
 augroup vimrc
     autocmd!
@@ -107,12 +128,6 @@ augroup END
 
 hi link EasyMotionShade  Comment
 hi link EasyMotionTarget Underlined
-hi MBENormal               guifg=#808080 guibg=fg ctermfg=DarkBlue
-hi MBEChanged              guifg=red guibg=blue ctermbg=red ctermfg=DarkBlue
-hi MBEVisibleNormal        guifg=#5DC2D6 guibg=fg ctermfg=yellow
-hi MBEVisibleChanged       guifg=#F1266F guibg=fg
-hi MBEVisibleActiveNormal  guifg=#A6DB29 guibg=fg ctermfg=white
-hi MBEVisibleActiveChanged guifg=#F1266F guibg=fg
 hi IncSearch               term=reverse ctermfg=black ctermbg=10 gui=reverse guifg=green guibg=black
 hi Search                  term=reverse ctermfg=black ctermbg=red guifg=black guibg=red
 hi OverLength ctermbg=white ctermfg=white guibg=#592929
@@ -124,14 +139,14 @@ match OverLength /\%80v/
 " Functions
 function! <SID>StripTrailingWhitespace()
     " Preparation: save last search, and cursor position.
-    let _s=@/
-    let l = line(".")
-    let c = col(".")
+    let l:_s=@/
+    let l:l = line('.')
+    let l:c = col('.')
     " Do the business:
     %s/\s\+$//e
     " Clean up: restore previous search history, and cursor position
-    let @/=_s
-    call cursor(l, c)
+    let @/=l:_s
+    call cursor(l:l, l:c)
 endfunction
 
 
