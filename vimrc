@@ -2,6 +2,7 @@ scriptencoding utf-8
 call pathogen#infect()
 
 colorscheme slate
+filetype plugin indent on
 " Syntax settings 
 syntax on
 syntax match Todo /{code\w\*}/ conceal
@@ -39,10 +40,15 @@ nmap <leader>g :YcmCompleter GoTo<CR>
 nmap <leader>r :YcmCompleter GoToReferences<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>s :CtrlPBuffer<CR>
+nmap <silent> <leader>aj :ALENextWrap<cr>
+nmap <silent> <leader>ak :ALEPreviousWrap<cr>
+nmap <leader>g "zyiw:execute 'silent! tag '.@z \| :silent! YcmCompleter GoTo<CR>
+nmap <leader>c :ALELint<CR>
 
 "" esoteric keybindings
 nmap <F7> :mks! /tmp/session.vim <CR>:wqa<CR>
-nmap <F8> :let root = getcwd()<CR>:exec system("cat /tmp/session.vim \| grep -P 'badd\|cd'") \| exec 'cd ' . root<CR>
+nmap <F8> :let root = getcwd()<CR>:exec system("cat /tmp/session.vim \| grep  -P 'badd\|cd'") \| exec 'cd ' . root<CR>
+
 
 " Options
 set noshowmode
@@ -80,6 +86,7 @@ let g:syntastic_python_checkers = ['flake8']
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_enter = 0
 
 let g:miniBufExplCheckDupeBufs = 0
 
@@ -90,14 +97,28 @@ let g:R_applescript = 0
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   l:all_non_errors,
+    \   l:all_errors
+    \)
+endfunction
+
 let g:lightline = {
       \ 'colorscheme': 'landscape',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'ale' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#statusline'
+      \   'gitbranch': 'fugitive#statusline',
+      \   'ale': 'LinterStatus',
       \ },
       \ }
 
@@ -124,6 +145,11 @@ augroup vimrc
     autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
     autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
 augroup END
+augroup qf
+    autocmd!
+    autocmd FileType qf set nobuflisted
+augroup END
+
 
 
 hi link EasyMotionShade  Comment
@@ -133,6 +159,7 @@ hi Search                  term=reverse ctermfg=black ctermbg=red guifg=black gu
 hi OverLength ctermbg=white ctermfg=white guibg=#592929
 hi ColorColumn ctermbg=235 guibg=#2c2d27
 hi EOLWS ctermbg=red guibg=red
+hi ErrorMsg ctermfg=black ctermbg=red
 
 match OverLength /\%80v/
 
