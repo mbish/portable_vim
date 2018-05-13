@@ -11,7 +11,7 @@ else
 endif
 
 filetype plugin indent on
-" Syntax settings 
+" Syntax settings
 syntax on
 syntax match Todo /{code\w\*}/ conceal
 
@@ -23,13 +23,18 @@ nmap - :bp<CR>
 nmap = :bn<CR>
 nmap _ :tabnext<CR>
 nmap + :tabprevious<CR>
-nmap \ gt
-nmap \| gT
+nmap <M-e> $
 nmap ds bdw
 nmap <C-W>e <C-W>=-=
 nmap <C-I> bi
 nmap <C-d> <Esc>:w<CR>
 nmap ö :r!xclip -o<CR>
+imap ð <Esc>:wq<CR>
+nmap ð :wq<CR>
+nmap » cxiww.
+nmap « cxiwb.
+nmap ” cxiWw.
+nmap “ cxiWb.
 
 
 "" package specific key bindings
@@ -38,7 +43,8 @@ nmap <F2> :NERDTreeToggle<CR>
 imap <c-l> <Esc><Plug>(easymotion-bd-w)
 map <c-l> <Plug>(easymotion-bd-w)
 map <c-j> <Plug>(easymotion-bd-s)
-nmap <c-p> :Ack 
+nmap <c-p> :Ack
+vmap P "zy :Ack <C-r>z<CR>
 
 "" leader bindings
 nmap <space> <leader>
@@ -52,9 +58,7 @@ nmap <silent> <leader>aj :ALENextWrap<cr>
 nmap <silent> <leader>ak :ALEPreviousWrap<cr>
 nmap <leader>g "zyiw:execute 'silent! tag '.@z \| :silent! YcmCompleter GoTo<CR>
 nmap <leader>c :ALELint<CR>
-imap ð <Esc>:wq<CR>
-nmap ð :wq<CR>
-vmap P "zy :Ack <C-r>z<CR>
+nmap µ %
 " possibly add motion based search
 
 "" esoteric keybindings
@@ -164,8 +168,6 @@ augroup END
 
 
 
-hi link EasyMotionShade  Comment
-hi link EasyMotionTarget Underlined
 hi IncSearch               term=reverse ctermfg=black ctermbg=10 gui=reverse guifg=green guibg=black
 hi Search                  term=reverse ctermfg=black ctermbg=red guifg=black guibg=red
 hi OverLength ctermbg=white ctermfg=white guibg=#592929
@@ -187,7 +189,6 @@ function! <SID>StripTrailingWhitespace()
     let @/=l:_s
     call cursor(l:l, l:c)
 endfunction
-
 
 " External Config
 if filereadable(expand('~/.colors.vim'))
