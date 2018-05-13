@@ -44,6 +44,8 @@ nmap <silent> <leader>aj :ALENextWrap<cr>
 nmap <silent> <leader>ak :ALEPreviousWrap<cr>
 nmap <leader>g "zyiw:execute 'silent! tag '.@z \| :silent! YcmCompleter GoTo<CR>
 nmap <leader>c :ALELint<CR>
+vmap P "zy :Ack <C-r>z<CR>
+" possibly add motion based search
 
 "" esoteric keybindings
 nmap <F7> :mks! /tmp/session.vim <CR>:wqa<CR>
