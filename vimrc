@@ -1,7 +1,15 @@
 scriptencoding utf-8
-call pathogen#infect()
 
-colorscheme slate
+if $MINIMAL
+    colorscheme elflord
+    execute pathogen#interpose('bundle/vim-easymotion')
+    execute pathogen#interpose('bundle/vim-surround')
+    execute pathogen#interpose('bundle/vim-exchange')
+else
+    call pathogen#infect()
+    colorscheme slate
+endif
+
 filetype plugin indent on
 " Syntax settings 
 syntax on
@@ -44,6 +52,8 @@ nmap <silent> <leader>aj :ALENextWrap<cr>
 nmap <silent> <leader>ak :ALEPreviousWrap<cr>
 nmap <leader>g "zyiw:execute 'silent! tag '.@z \| :silent! YcmCompleter GoTo<CR>
 nmap <leader>c :ALELint<CR>
+imap ð <Esc>:wq<CR>
+nmap ð :wq<CR>
 vmap P "zy :Ack <C-r>z<CR>
 " possibly add motion based search
 
