@@ -35,6 +35,7 @@ nmap » cxiww.
 nmap « cxiwb.
 nmap ” cxiWw.
 nmap “ cxiWb.
+nmap µ %
 
 
 "" package specific key bindings
@@ -58,7 +59,8 @@ nmap <silent> <leader>aj :ALENextWrap<cr>
 nmap <silent> <leader>ak :ALEPreviousWrap<cr>
 nmap <leader>g "zyiw:execute 'silent! tag '.@z \| :silent! YcmCompleter GoTo<CR>
 nmap <leader>c :ALELint<CR>
-nmap µ %
+nmap <leader>x :q!<CR>
+nmap <leader>m :Dispatch<CR>
 " possibly add motion based search
 
 "" esoteric keybindings
@@ -96,12 +98,6 @@ let g:UltiSnipsJumpForwardTrigger='<c-h>'
 let g:UltiSnipsJumpBackwardTrigger='<c-g>'
 
 let g:EasyMotion_smartcase = 1
-
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_pug_checkers = ['pug_lint']
-let g:syntastic_less_checkers = ['lessc']
-let g:syntastic_yaml_checkers = ['yamllint']
-let g:syntastic_python_checkers = ['flake8']
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -150,6 +146,9 @@ let g:ctrlp_custom_ignore = {
   \ }
 
 let g:ctrlp_map = 'NONE'
+let g:ctrlp_mruf_include = '*.REMEMBER*'
+let g:ctrlp_mruf_max = 0
+let g:ctrlp_mruf_save_on_update = 1
 " Autocmds
 augroup vimrc
     autocmd!
@@ -165,6 +164,7 @@ augroup vimrc
 
     autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
     autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+    autocmd FileType python let b:dispatch = 'python -m nose %'
 augroup END
 augroup qf
     autocmd!
