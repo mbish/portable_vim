@@ -1,0 +1,15 @@
+snippet tclass "Test Class"
+import unittest
+
+
+class Test${1:ClassName}(unittest.TestCase):
+	def setup(self):
+		${2:${VISUAL:pass}}
+
+	def test_${3:TestName}(self$4):
+		${5:${VISUAL:pass}}
+
+
+if __name__ == '__main__':
+	unittest.main()
+endsnippet
