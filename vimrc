@@ -91,6 +91,10 @@ set mouse-=a
 let g:loaded_diminactive=1
 let &colorcolumn=join(range(81,999),',')
 
+let g:UltiSnipsExpandTrigger='<c-a>'
+let g:UltiSnipsJumpForwardTrigger='<c-h>'
+let g:UltiSnipsJumpBackwardTrigger='<c-g>'
+
 let g:EasyMotion_smartcase = 1
 
 let g:syntastic_javascript_checkers = ['eslint']
@@ -130,11 +134,12 @@ let g:lightline = {
       \ 'colorscheme': 'landscape',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'ale' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'ale', 'pyhelper' ] ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#statusline',
       \   'ale': 'LinterStatus',
+      \   'pyhelper': 'TagInStatusLine',
       \ },
       \ }
 
