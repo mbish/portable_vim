@@ -28,7 +28,7 @@ nmap ds bdw
 nmap <C-W>e <C-W>=-=
 nmap <C-I> bi
 nmap <C-d> <Esc>:w<CR>
-nmap ö :r!xclip -o<CR>
+" nmap ö :r!xclip -o<CR>
 imap ð <Esc>:wq<CR>
 nmap ð :wq<CR>
 nmap » cxiww.
@@ -69,6 +69,9 @@ nmap <F8> :let root = getcwd()<CR>:exec system("cat /tmp/session.vim \| grep  -P
 
 
 " Options
+set autoread
+set noswapfile
+set clipboard=unnamed
 set noshowmode
 set tabstop=4
 set shiftwidth=4
@@ -98,6 +101,8 @@ let g:UltiSnipsJumpForwardTrigger='<c-h>'
 let g:UltiSnipsJumpBackwardTrigger='<c-g>'
 
 let g:EasyMotion_smartcase = 1
+
+let NERDTreeIgnore=['\.pyc$', '\~$'] 
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -165,6 +170,7 @@ augroup vimrc
     autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
     autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
     autocmd FileType python let b:dispatch = 'python -m nose %'
+    au FocusGained,BufEnter * :checktime
 augroup END
 augroup qf
     autocmd!
@@ -203,3 +209,4 @@ endif
 if filereadable(expand('~/.local.vim'))
     source ~/.local.vim
 endif
+
