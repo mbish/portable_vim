@@ -154,6 +154,11 @@ let g:ctrlp_map = 'NONE'
 let g:ctrlp_mruf_include = '*.REMEMBER*'
 let g:ctrlp_mruf_max = 0
 let g:ctrlp_mruf_save_on_update = 1
+
+let g:ale_fixers = {
+\   'bash': ['shellharden --transform'],
+\   'sh': ['shellharden',' --transform'],
+\}
 " Autocmds
 augroup vimrc
     autocmd!
