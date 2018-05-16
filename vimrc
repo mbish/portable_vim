@@ -5,6 +5,7 @@ if $MINIMAL
     execute pathogen#interpose('bundle/vim-easymotion')
     execute pathogen#interpose('bundle/vim-surround')
     execute pathogen#interpose('bundle/vim-exchange')
+    execute pathogen#interpose('bundle/vim-swap')
 else
     call pathogen#infect()
     colorscheme slate
