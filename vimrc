@@ -37,6 +37,8 @@ nmap « cxiwb.
 nmap ” cxiWw.
 nmap “ cxiWb.
 nmap µ %
+nmap þ :let g:dispatch = 'python -m nose '.expand("%")<CR>:autocmd BufWrite *.py Dispatch<CR>
+nmap Þ :let g:dispatch = 'python -m nose %'<CR>:autocmd! BufWrite *.py<CR>
 
 
 "" package specific key bindings
@@ -175,7 +177,6 @@ augroup vimrc
 
     autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
     autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
-    autocmd FileType python let b:dispatch = 'python -m nose %'
     au FocusGained,BufEnter * :checktime
 augroup END
 augroup qf
@@ -195,6 +196,9 @@ hi ErrorMsg ctermfg=black ctermbg=red
 match OverLength /\%80v/
 
 " Functions
+" function AutoTest()
+"     if exists(&g:test_focus) 
+
 function! <SID>StripTrailingWhitespace()
     " Preparation: save last search, and cursor position.
     let l:_s=@/
