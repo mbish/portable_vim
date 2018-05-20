@@ -18,6 +18,8 @@ syntax match Todo /{code\w\*}/ conceal
 
 " Key bindings
 imap <C-k> <Esc>
+omap <C-k> <Esc>
+xmap <C-k> <Esc>
 imap <C-d> <Esc>:w<CR>
 nmap ; a
 nmap - :bp<CR>
@@ -37,6 +39,8 @@ nmap « cxiwb.
 nmap ” cxiWw.
 nmap “ cxiWb.
 nmap µ %
+
+"" could be generalized to include other file types
 nmap þ :let g:dispatch = 'python -m nose '.expand("%")<CR>:autocmd BufWrite *.py Dispatch<CR>
 nmap Þ :let g:dispatch = 'python -m nose %'<CR>:autocmd! BufWrite *.py<CR>
 
@@ -105,7 +109,7 @@ let g:UltiSnipsJumpBackwardTrigger='<c-g>'
 
 let g:EasyMotion_smartcase = 1
 
-let NERDTreeIgnore=['\.pyc$', '\~$'] 
+let g:NERDTreeIgnore=['\.pyc$', '\~$'] 
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -194,6 +198,8 @@ hi EOLWS ctermbg=red guibg=red
 hi ErrorMsg ctermfg=black ctermbg=red
 
 match OverLength /\%80v/
+
+call add(g:swap#default_keymappings, {'input': "\<C-k>", 'output': "\<Plug>(swap-mode-Esc)"})
 
 " Functions
 " function AutoTest()
