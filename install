@@ -3,4 +3,5 @@
 git submodule update --init --recursive
 [ -e $HOME/.vimrc ] || ln -s `pwd`/vimrc $HOME/.vimrc
 [ -d $HOME/.vim ] || ln -s `pwd` $HOME/.vim
+[ -d $HOME/.config/nvim ] || ln -s `pwd` $HOME/.config/nvim
 cd $HOME/.vim/bundle/YouCompleteMe && ./install.py

@@ -11,7 +11,7 @@ else
     colorscheme slate
 endif
 
-filetype plugin indent on
+filetype indent plugin on
 " Syntax settings
 syntax on
 syntax match Todo /{code\w\*}/ conceal
@@ -39,6 +39,7 @@ nmap « cxiwb.
 nmap ” cxiWw.
 nmap “ cxiWb.
 nmap µ %
+nmap <M-/> :noh<CR>
 
 "" could be generalized to include other file types
 nmap þ :let g:dispatch = 'python -m nose '.expand("%")<CR>:autocmd BufWrite *.py Dispatch<CR>
@@ -48,9 +49,8 @@ nmap Þ :let g:dispatch = 'python -m nose %'<CR>:autocmd! BufWrite *.py<CR>
 "" package specific key bindings
 nmap <c-n> :MBEFocus<CR>
 nmap <F2> :NERDTreeToggle<CR>
-imap <c-l> <Esc><Plug>(easymotion-bd-w)
 map <c-l> <Plug>(easymotion-bd-w)
-map <c-j> <Plug>(easymotion-bd-s)
+nmap s <Plug>(easymotion-s)
 nmap <c-p> :Ack
 vmap P "zy :Ack <C-r>z<CR>
 
@@ -68,6 +68,9 @@ nmap <leader>g "zyiw:execute 'silent! tag '.@z \| :silent! YcmCompleter GoTo<CR>
 nmap <leader>c :ALELint<CR>
 nmap <leader>x :q!<CR>
 nmap <leader>m :Dispatch<CR>
+map <Leader>/ <Plug>(easymotion-sn)
+map <Leader>j <Plug>(easymotion-overwin-f2)
+map <Leader>J <Plug>(easymotion-overwin-line)
 " possibly add motion based search
 
 "" esoteric keybindings
