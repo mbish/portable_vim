@@ -34,15 +34,22 @@ nmap <C-d> <Esc>:w<CR>
 " nmap ö :r!xclip -o<CR>
 imap ð <Esc>:wq<CR>
 nmap ð :wq<CR>
+"\-]
 nmap » cxiww.
+"\-[
 nmap « cxiwb.
+"\-Shift-]
 nmap ” cxiWw.
+"\-Shift-[
 nmap “ cxiWb.
+"\-m
 nmap µ %
 nmap <M-/> :noh<CR>
 
 "" could be generalized to include other file types
+" \-t
 nmap þ :let g:dispatch = 'python -m nose '.expand("%")<CR>:autocmd BufWrite *.py Dispatch<CR>
+" \-T
 nmap Þ :let g:dispatch = 'python -m nose %'<CR>:autocmd! BufWrite *.py<CR>
 
 
