@@ -48,9 +48,9 @@ nmap <M-/> :noh<CR>
 
 "" could be generalized to include other file types
 " \-t
-nmap þ :let g:dispatch = 'python -m nose '.expand("%")<CR>:autocmd BufWrite *.py Dispatch<CR>
+nmap þ :let g:dispatch = 'python -m nose '.expand("%")<CR>:let g:test_target = expand("%")<CR>:autocmd BufWrite *.py Dispatch<CR>
 " \-T
-nmap Þ :let g:dispatch = 'python -m nose %'<CR>:autocmd! BufWrite *.py<CR>
+nmap Þ :let g:dispatch = 'python -m nose %'<CR>:let g:test_target = expand("%")<CR>:autocmd! BufWrite *.py<CR>
 
 
 "" package specific key bindings
@@ -134,6 +134,7 @@ let g:R_in_buffer = 0
 let g:R_applescript = 0
 
 let g:ycm_collect_identifiers_from_tags_files = 1
+let g:test_target = ""
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -148,16 +149,25 @@ function! LinterStatus() abort
     \)
 endfunction
 
+function! GetTestTarget() abort
+    return g:test_target
+endfunction
+
 let g:lightline = {
       \ 'colorscheme': 'landscape',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'ale', 'pyhelper' ] ]
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'ale', 'pyhelper' ] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'GetTestTarget', 'fileformat', 'fileencoding', 'filetype'],
+      \            ],
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#statusline',
       \   'ale': 'LinterStatus',
       \   'pyhelper': 'TagInStatusLine',
+      \   'GetTestTarget': 'GetTestTarget',
       \ },
       \ }
 
