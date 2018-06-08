@@ -47,10 +47,16 @@ nmap µ %
 nmap <M-/> :noh<CR>
 
 "" could be generalized to include other file types
+
+function! RunTests() abort
+    let g:test_target = expand("%")
+    let g:dispatch = 'python -m nose '.g:test_target
+    autocmd BufWrite *.py Dispatch
+endfunction
 " \-t
-nmap þ :let g:dispatch = 'python -m nose '.expand("%")<CR>:let g:test_target = expand("%")<CR>:autocmd BufWrite *.py Dispatch<CR>
+nmap <silent> þ :call RunTests()<CR>
 " \-T
-nmap Þ :let g:dispatch = 'python -m nose %'<CR>:let g:test_target = expand("%")<CR>:autocmd! BufWrite *.py<CR>
+nmap <silent> Þ :let g:test_target = "" \| autocmd! BufWrite *.py<CR>
 
 
 "" package specific key bindings
