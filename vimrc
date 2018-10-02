@@ -50,7 +50,7 @@ nmap <M-/> :noh<CR>
 
 function! RunTests() abort
     let g:test_target = expand("%")
-    let g:dispatch = 'python -m nose '.g:test_target
+    let g:dispatch = 'remote-test specific '.g:test_target
     autocmd BufWrite *.py Dispatch
 endfunction
 " \-t
@@ -64,13 +64,13 @@ nmap <c-n> :MBEFocus<CR>
 nmap <F2> :NERDTreeToggle<CR>
 map <c-l> <Plug>(easymotion-bd-w)
 nmap s <Plug>(easymotion-s)
-nmap <c-p> :Ack
+nmap <c-p> :Ack -i ""<Left>
 vmap P "zy :Ack <C-r>z<CR>
 
 "" leader bindings
 nmap <space> <leader>
 nmap <leader>q :bd<CR>
-nmap <silent> <Leader>t :call <SID>StripTrailingWhitespace()<CR>
+nmap <silent> <leader>t :call <SID>StripTrailingWhitespace()<CR>
 nmap <leader>g :YcmCompleter GoTo<CR>
 nmap <leader>r :YcmCompleter GoToReferences<CR>
 nmap <leader>f :CtrlP<CR>
@@ -84,6 +84,8 @@ nmap <leader>m :Dispatch<CR>
 map <Leader>/ <Plug>(easymotion-sn)
 map <Leader>j <Plug>(easymotion-overwin-f2)
 map <Leader>J <Plug>(easymotion-overwin-line)
+map <Leader>v :Dispatch vagrant rsync nix<CR>
+map <Leader>T :Dispatch vagrant ssh -c "make; make test"<CR>
 " possibly add motion based search
 
 "" esoteric keybindings
@@ -125,7 +127,7 @@ let g:UltiSnipsJumpBackwardTrigger='<c-g>'
 
 let g:EasyMotion_smartcase = 1
 
-let g:NERDTreeIgnore=['\.pyc$', '\~$'] 
+let g:NERDTreeIgnore=['\.pyc$', '\~$']
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -197,6 +199,7 @@ augroup vimrc
     autocmd!
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
     autocmd FileType json setlocal shiftwidth=2 tabstop=2
+    autocmd FileType java set tags=../.tags,/usr/lib/jvm/java-8-openjdk/.tags
 
     autocmd Syntax html call SyntaxRange#Include("<markdown>", "</markdown>", "markdown")
     autocmd Syntax html call SyntaxRange#Include("```python", "```", "python")
@@ -229,7 +232,7 @@ call add(g:swap#default_keymappings, {'input': "\<C-k>", 'output': "\<Plug>(swap
 
 " Functions
 " function AutoTest()
-"     if exists(&g:test_focus) 
+"     if exists(&g:test_focus)
 
 function! <SID>StripTrailingWhitespace()
     " Preparation: save last search, and cursor position.
