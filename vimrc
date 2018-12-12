@@ -89,7 +89,7 @@ map <Leader>T :Dispatch vagrant ssh -c "make; make test"<CR>
 " possibly add motion based search
 
 "" esoteric keybindings
-nmap <F7> :mks! /tmp/session.vim <CR>:wqa<CR>
+nmap <F7> :mks! /tmp/session.vim \| :wqa \| exit<CR>
 nmap <F8> :let root = getcwd()<CR>:exec system("cat /tmp/session.vim \| grep  -P 'badd\|cd'") \| exec 'cd ' . root<CR>
 
 
@@ -143,6 +143,7 @@ let g:R_applescript = 0
 
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:test_target = ""
+let g:ycm_server_python_interpreter = "/usr/bin/python2.7"
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
