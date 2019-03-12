@@ -8,7 +8,7 @@ if $MINIMAL
     execute pathogen#interpose('bundle/vim-swap')
 else
     call pathogen#infect()
-    colorscheme slate
+    colorscheme modified_slate
 endif
 
 filetype indent plugin on
@@ -32,22 +32,23 @@ nmap <C-W>e <C-W>=-=
 nmap <C-I> bi
 nmap <C-d> <Esc>:w<CR>
 " nmap ö :r!xclip -o<CR>
+"\-d"
 imap ð <Esc>:wq<CR>
+"\-d"
 nmap ð :wq<CR>
 "\-]
-nmap » cxiww.
+map » <Plug>(IndentWiseNextEqualIndent)
 "\-[
-nmap « cxiwb.
-"\-Shift-]
-nmap ” cxiWw.
-"\-Shift-[
-nmap “ cxiWb.
+map « <Plug>(IndentWisePreviousEqualIndent)
+"\-=
+map × <Plug>(IndentWiseNextGreaterIndent)
+"\--
+map ¥ <Plug>(IndentWisePreviousLesserIndent)
 "\-m
 nmap µ %
 nmap <M-/> :noh<CR>
 
 "" could be generalized to include other file types
-
 function! RunTests() abort
     let g:test_target = expand("%")
     let g:dispatch = 'remote-test specific '.g:test_target
@@ -62,16 +63,21 @@ nmap <silent> Þ :let g:test_target = "" \| autocmd! BufWrite *.py<CR>
 "" package specific key bindings
 nmap <c-n> :MBEFocus<CR>
 nmap <F2> :NERDTreeToggle<CR>
+imap <F2> <Esc>:NERDTreeToggle<CR>
 map <c-l> <Plug>(easymotion-bd-w)
+map <c-a> <Plug>(easymotion-overwin-w)
 nmap s <Plug>(easymotion-s)
 nmap <c-p> :Ack -i ""<Left>
-vmap P "zy :Ack <C-r>z<CR>
+xnoremap P "zy :Ack "<C-r>z"<CR>
+xnoremap f :Autopep8<CR>:ALELint<CR>
+nmap ca :nohlsearch<CR>
 
 "" leader bindings
 nmap <space> <leader>
 nmap <leader>q :bd<CR>
 nmap <silent> <leader>t :call <SID>StripTrailingWhitespace()<CR>
 nmap <leader>g :YcmCompleter GoTo<CR>
+nnoremap <leader>k "zyiw :Ack <C-r>z<CR>
 nmap <leader>r :YcmCompleter GoToReferences<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>s :CtrlPBuffer<CR>
@@ -84,8 +90,13 @@ nmap <leader>m :Dispatch<CR>
 map <Leader>/ <Plug>(easymotion-sn)
 map <Leader>j <Plug>(easymotion-overwin-f2)
 map <Leader>J <Plug>(easymotion-overwin-line)
-map <Leader>v :Dispatch vagrant rsync nix<CR>
+map <Leader>pv :Dispatch lighton --pulse --duration 2000 -- remote-sync <CR>
+map <Leader>pi :Dispatch remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build inc <CR>
+map <Leader>V :Dispatch lighton --pulse --duration 2000 -- remote-test install<CR>
 map <Leader>T :Dispatch vagrant ssh -c "make; make test"<CR>
+map <F4> :TagbarToggle<CR>
+nmap gn :NERDTreeRefreshRoot<CR>:NERDTreeFind<CR>
+nmap gt :TagbarOpen 'fj'<CR>
 " possibly add motion based search
 
 "" esoteric keybindings
@@ -94,6 +105,7 @@ nmap <F8> :let root = getcwd()<CR>:exec system("cat /tmp/session.vim \| grep  -P
 
 
 " Options
+set hlsearch
 set autoread
 set noswapfile
 set clipboard=unnamed
@@ -120,6 +132,9 @@ set mouse-=a
 " Package Variables
 let g:loaded_diminactive=1
 let &colorcolumn=join(range(81,999),',')
+
+let g:autopep8_disable_show_diff=1
+let g:autopep8_aggressive=2
 
 let g:UltiSnipsExpandTrigger='<c-a>'
 let g:UltiSnipsJumpForwardTrigger='<c-h>'
@@ -201,16 +216,21 @@ augroup vimrc
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
     autocmd FileType json setlocal shiftwidth=2 tabstop=2
     autocmd FileType java set tags=../.tags,/usr/lib/jvm/java-8-openjdk/.tags
+    autocmd FileType haskell let b:dispatch="ghci %"
+    autocmd FileType haskell map <buffer> <Leader>h :Dispatch! xmonad --recompile<CR>
 
     autocmd Syntax html call SyntaxRange#Include("<markdown>", "</markdown>", "markdown")
     autocmd Syntax html call SyntaxRange#Include("```python", "```", "python")
     autocmd Syntax markdown call SyntaxRange#Include("```python", "```", "python")
     autocmd Syntax perl call SyntaxRange#Include("<<SQL;", "SQL", "sql")
+    autocmd FileType python nmap <buffer> yf [pfwvt(
+    autocmd FileType python nmap <buffer> yc [pcwvt(
 
     autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
 
     autocmd InsertEnter * syn clear EOLWS | syn match EOLWS excludenl /\s\+\%#\@!$/
     autocmd InsertLeave * syn clear EOLWS | syn match EOLWS excludenl /\s\+$/
+    autocmd FileType python set equalprg=autopep8\ -
     au FocusGained,BufEnter * :checktime
 augroup END
 augroup qf
