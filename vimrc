@@ -19,6 +19,44 @@ syntax on
 syntax match Todo /{code\w\*}/ conceal
 " ==============================================================================
 
+" Functions
+function! <SID>StripTrailingWhitespace()
+    " Preparation: save last search, and cursor position.
+    let l:_s=@/
+    let l:l = line('.')
+    let l:c = col('.')
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=l:_s
+    call cursor(l:l, l:c)
+endfunction
+
+"" could be generalized to include other file types
+function! RunTests() abort
+    let g:test_target = expand("%")
+    let g:dispatch = 'remote-test specific '.g:test_target
+    autocmd BufWrite *.py Dispatch
+endfunction
+
+function! LinterStatus() abort
+    let l:counts = ale#statusline#Count(bufnr(''))
+
+    let l:all_errors = l:counts.error + l:counts.style_error
+    let l:all_non_errors = l:counts.total - l:all_errors
+
+    return l:counts.total == 0 ? 'OK' : printf(
+    \   '%dW %dE',
+    \   l:all_non_errors,
+    \   l:all_errors
+    \)
+endfunction
+
+function! GetTestTarget() abort
+    return g:test_target
+endfunction
+" ==============================================================================
+
 " Navigartion key bindings
 imap <C-d> <Esc>:w<CR>
 imap <C-k> <Esc>
@@ -73,17 +111,26 @@ nmap s <Plug>(easymotion-s)
 xnoremap P "zy :Ack "<C-r>z"<CR>
 xnoremap s :sort<CR>
 " =============================================================================
+let b:ale_linters = ['flake8']
+let g:autopep8_aggressive=2
+let g:autopep8_disable_show_diff=1
+set equalprg=autopep8\ -
+
+xnoremap f :Autopep8<CR>:ALELint<CR>
+
+nmap <buffer> yf [pfwvt(
+nmap <buffer> yc [pcwvt(
 
 "" leader bindings
 map <F4> :TagbarToggle<CR>
-map <Leader>/ <Plug>(easymotion-sn)
-map <Leader>J <Plug>(easymotion-overwin-line)
-map <Leader>T :Dispatch vagrant ssh -c "make; make test"<CR>
-map <Leader>j <Plug>(easymotion-overwin-f2)
-map <Leader>pi :Dispatch remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build inc <CR>
-map <Leader>pm :Dispatch remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build full <CR>
-map <Leader>pn :Dispatch lighton --pulse --duration 2000 -- remote-test install<CR>
-map <Leader>pv :Dispatch lighton --pulse --duration 2000 -- remote-sync <CR>
+map <leader>/ <Plug>(easymotion-sn)
+map <leader>J <Plug>(easymotion-overwin-line)
+map <leader>T :Dispatch vagrant ssh -c "make; make test"<CR>
+map <leader>j <Plug>(easymotion-overwin-f2)
+map <leader>pi :Dispatch remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build inc <CR>
+map <leader>pm :Dispatch remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build full <CR>
+map <leader>pn :Dispatch lighton --pulse --duration 2000 -- remote-test install<CR>
+map <leader>pv :Dispatch lighton --pulse --duration 2000 -- remote-sync <CR>
 nmap <leader>c :ALELint<CR>
 nmap <leader>f :CtrlP<CR>
 nmap <leader>g "zyiw:execute 'silent! tag '.@z \| :silent! YcmCompleter GoTo<CR>
@@ -217,44 +264,6 @@ hi Search term=reverse ctermfg=black ctermbg=red guifg=black guibg=red
 match OverLength /\%80v/
 
 call add(g:swap#default_keymappings, {'input': "\<C-k>", 'output': "\<Plug>(swap-mode-Esc)"})
-
-" Functions
-function! <SID>StripTrailingWhitespace()
-    " Preparation: save last search, and cursor position.
-    let l:_s=@/
-    let l:l = line('.')
-    let l:c = col('.')
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=l:_s
-    call cursor(l:l, l:c)
-endfunction
-
-"" could be generalized to include other file types
-function! RunTests() abort
-    let g:test_target = expand("%")
-    let g:dispatch = 'remote-test specific '.g:test_target
-    autocmd BufWrite *.py Dispatch
-endfunction
-
-function! LinterStatus() abort
-    let l:counts = ale#statusline#Count(bufnr(''))
-
-    let l:all_errors = l:counts.error + l:counts.style_error
-    let l:all_non_errors = l:counts.total - l:all_errors
-
-    return l:counts.total == 0 ? 'OK' : printf(
-    \   '%dW %dE',
-    \   l:all_non_errors,
-    \   l:all_errors
-    \)
-endfunction
-
-function! GetTestTarget() abort
-    return g:test_target
-endfunction
-" ==============================================================================
 
 
 " External Config
