@@ -61,7 +61,7 @@ nmap <silent> Þ :let g:test_target = "" \| autocmd! BufWrite *.py<CR>
 
 
 "" package specific key bindings
-nmap <c-n> :MBEFocus<CR>
+nmap <c-n> :cclose<CR>
 nmap <F2> :NERDTreeToggle<CR>
 imap <F2> <Esc>:NERDTreeToggle<CR>
 map <c-l> <Plug>(easymotion-bd-w)
@@ -90,9 +90,10 @@ nmap <leader>m :Dispatch<CR>
 map <Leader>/ <Plug>(easymotion-sn)
 map <Leader>j <Plug>(easymotion-overwin-f2)
 map <Leader>J <Plug>(easymotion-overwin-line)
-map <Leader>pv :Dispatch lighton --pulse --duration 2000 -- remote-sync <CR>
-map <Leader>pi :Dispatch remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build inc <CR>
-map <Leader>V :Dispatch lighton --pulse --duration 2000 -- remote-test install<CR>
+map <Leader>pv :Dispatch! lighton --pulse --duration 2000 -- remote-sync <CR>
+map <Leader>pi :Dispatch! remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build inc <CR>
+map <Leader>pm :Dispatch! remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build full <CR>
+map <Leader>V :Dispatch! lighton --pulse --duration 2000 -- remote-test install<CR>
 map <Leader>T :Dispatch vagrant ssh -c "make; make test"<CR>
 map <F4> :TagbarToggle<CR>
 nmap gn :NERDTreeRefreshRoot<CR>:NERDTreeFind<CR>
@@ -148,8 +149,6 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
-
-let g:miniBufExplCheckDupeBufs = 0
 
 let g:NERDTreeQuitOnOpen=1
 
