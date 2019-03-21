@@ -59,14 +59,20 @@ nmap <silent> þ :call RunTests()<CR>
 " \-T
 nmap <silent> Þ :let g:test_target = "" \| autocmd! BufWrite *.py<CR>
 
+function! IsQuickFixOpen() abort
+    filter(range(1, winnr('$')), 'getwinvar(v:val, "&ft") == "qf"') != []
+endfunction
+
 
 "" package specific key bindings
-nmap <c-n> :cclose<CR>
+nmap <c-n> <Plug>(qf_qf_toggle)
 nmap <F2> :NERDTreeToggle<CR>
 imap <F2> <Esc>:NERDTreeToggle<CR>
 map <c-l> <Plug>(easymotion-bd-w)
 map <c-a> <Plug>(easymotion-overwin-w)
-nmap s <Plug>(easymotion-s)
+nmap s <Plug>(easymotion-bd-w)
+nmap ym <Plug>(easyoperator-line-yank)
+nmap dm <Plug>(easyoperator-line-delete)
 nmap <c-p> :Ack -i ""<Left>
 xnoremap P "zy :Ack "<C-r>z"<CR>
 xnoremap f :Autopep8<CR>:ALELint<CR>
@@ -97,11 +103,12 @@ map <Leader>V :Dispatch! lighton --pulse --duration 2000 -- remote-test install<
 map <Leader>T :Dispatch vagrant ssh -c "make; make test"<CR>
 map <F4> :TagbarToggle<CR>
 nmap gn :NERDTreeRefreshRoot<CR>:NERDTreeFind<CR>
-nmap gt :TagbarOpen 'fj'<CR>
+nmap gt :TagbarOpen 'fjc'<CR>
+nmap gD :Copen<CR>
 " possibly add motion based search
 
 "" esoteric keybindings
-nmap <F7> :mks! /tmp/session.vim \| :wqa \| exit<CR>
+nnoremap <F7> :mks! /tmp/session.vim \| :wqa \| exit<CR>
 nmap <F8> :let root = getcwd()<CR>:exec system("cat /tmp/session.vim \| grep  -P 'badd\|cd'") \| exec 'cd ' . root<CR>
 
 
@@ -205,6 +212,8 @@ let g:ctrlp_mruf_include = '*.REMEMBER*'
 let g:ctrlp_mruf_max = 0
 let g:ctrlp_mruf_save_on_update = 1
 
+let g:qf_auto_open_quickfix=0
+
 let g:ale_fixers = {
 \   'bash': ['shellharden --transform'],
 \   'sh': ['shellharden',' --transform'],
@@ -246,7 +255,7 @@ hi ColorColumn ctermbg=235 guibg=#2c2d27
 hi EOLWS ctermbg=red guibg=red
 hi ErrorMsg ctermfg=black ctermbg=red
 
-match OverLength /\%80v/
+match OverLength /\%100v/
 
 call add(g:swap#default_keymappings, {'input': "\<C-k>", 'output': "\<Plug>(swap-mode-Esc)"})
 

@@ -130,3 +130,15 @@
 [submodule "bundle/vim-autopep8"]
 	path = bundle/vim-autopep8
 	url = https://github.com/tell-k/vim-autopep8.git
+[submodule "bundle/vim-toggle-quickfix"]
+	path = bundle/vim-toggle-quickfix
+	url = git://github.com/drmingdrmer/vim-toggle-quickfix.git
+[submodule "bundle/vim-qf"]
+	path = bundle/vim-qf
+	url = https://github.com/romainl/vim-qf.git
+[submodule "bundle/vim-easyoperator-line"]
+	path = bundle/vim-easyoperator-line
+	url = https://github.com/haya14busa/vim-easyoperator-line.git
+[submodule "bundle/fzf"]
+	path = bundle/fzf
+	url = https://github.com/junegunn/fzf.git
