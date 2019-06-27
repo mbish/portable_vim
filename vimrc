@@ -205,7 +205,7 @@ let g:NERDTreeIgnore=['\.pyc$', '\~$']
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-let g:ale_python_flake8_executable = 'python3'
+"let g:ale_python_flake8_executable = 'python3'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_linters = {
