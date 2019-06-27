@@ -1,1 +1,1 @@
-plug.vim
+../vim-plug/plug.vim

@@ -5,14 +5,43 @@ endif
 
 if $MINIMAL
     colorscheme slate
-    execute pathogen#interpose('bundle/vim-easymotion')
-    execute pathogen#interpose('bundle/vim-surround')
-    execute pathogen#interpose('bundle/vim-exchange')
-    execute pathogen#interpose('bundle/vim-swap')
+    call plug#begin('~/.vim/plugged')
+        Plug 'easymotion/vim-easymotion'
+        Plug 'tpope/vim-surround'
+        Plug 'tommcdo/vim-exchange'
+        Plug 'machakann/vim-swap'
+    call plug#end()
 else
     let g:gruvbox_contrast_dark='hard'
     let g:gruvbox_italic=1
-    call pathogen#infect()
+    call plug#begin('~/.vim/plugged')
+        Plug 'ap/vim-buftabline'
+        Plug 'bps/vim-textobj-python'
+        Plug 'davidhalter/jedi-vim'
+        Plug 'drmingdrmer/vim-toggle-quickfix'
+        Plug 'easymotion/vim-easymotion'
+        Plug 'haya14busa/vim-easyoperator-line'
+        Plug 'itchyny/lightline.vim', { 'do': 'cp ~/.vim/custom/lightline.vim/gruvbox.vim autoload/lightline/colorscheme/gruvbox.vim' }
+        Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+        Plug 'junegunn/fzf.vim'
+        Plug 'kana/vim-textobj-indent'
+        Plug 'kana/vim-textobj-user'
+        Plug 'machakann/vim-swap'
+        Plug 'majutsushi/tagbar'
+        Plug 'morhetz/gruvbox'
+        Plug 'nvie/vim-flake8'
+        Plug 'romainl/vim-qf'
+        Plug 'scrooloose/nerdtree'
+        Plug 'tmux-plugins/vim-tmux-focus-events'
+        Plug 'tommcdo/vim-exchange'
+        Plug 'tomtom/tcomment_vim'
+        Plug 'tpope/vim-fugitive'
+        Plug 'tpope/vim-surround'
+        Plug 'valloric/YouCompleteMe', { 'do': './install.py' }
+        Plug 'vim-scripts/SyntaxRange'
+        Plug 'vim-scripts/vimwiki'
+        Plug 'w0rp/ale'
+    call plug#end()
     colorscheme modified_slate
     colorscheme gruvbox
 endif
@@ -179,6 +208,9 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 let g:ale_python_flake8_executable = 'python3'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
+let g:ale_linters = {
+\   'python': ['/usr/bin/pep8'],
+\}
 
 let g:NERDTreeQuitOnOpen=1
 
@@ -300,7 +332,7 @@ hi ColorColumn guibg=#282828
 
 match OverLength /\%100v/
 
-call add(g:swap#default_keymappings, {'input': "\<C-k>", 'output': "\<Plug>(swap-mode-Esc)"})
+" call add(g:swap#default_keymappings, {'input': "\<C-k>", 'output': "\<Plug>(swap-mode-Esc)"})
 
 " Functions
 " function AutoTest()
