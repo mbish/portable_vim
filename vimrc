@@ -108,6 +108,8 @@ map <Leader>J <Plug>(easymotion-overwin-line)
 map <Leader>pv :Dispatch! lighton --pulse --duration 2000 -- remote-sync <CR>
 map <Leader>pi :Dispatch! remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build inc <CR>
 map <Leader>pm :Dispatch! remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build full <CR>
+map <Leader>pt :Dispatch! remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build itest <CR>
+map <Leader>ep :call GetCommand(":")<left><left>
 map <Leader>ef :e %:h/
 map <Leader>V :Dispatch! lighton --pulse --duration 2000 -- remote-test install<CR>
 map <Leader>T :Dispatch vagrant ssh -c "make; make test"<CR>
@@ -314,6 +316,12 @@ function! <SID>StripTrailingWhitespace()
     " Clean up: restore previous search history, and cursor position
     let @/=l:_s
     call cursor(l:l, l:c)
+endfunction
+
+function! GetCommand(command)
+    redir @*
+    silent exe a:command
+    redir END
 endfunction
 
 " External Config

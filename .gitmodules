@@ -157,3 +157,6 @@
 [submodule "bundle/vim-fish"]
 	path = bundle/vim-fish
 	url = https://github.com/dag/vim-fish.git
+[submodule "vim-plug"]
+	path = vim-plug
+	url = https://github.com/junegunn/vim-plug.git
