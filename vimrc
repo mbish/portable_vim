@@ -30,7 +30,7 @@ else
         Plug 'machakann/vim-swap'
         Plug 'majutsushi/tagbar'
         Plug 'morhetz/gruvbox'
-        Plug 'nvie/vim-flake8'
+        " Plug 'nvie/vim-flake8'
         Plug 'romainl/vim-qf'
         Plug 'scrooloose/nerdtree'
         Plug 'sirVer/ultisnips'
@@ -44,6 +44,7 @@ else
         Plug 'valloric/YouCompleteMe', { 'do': './install.py' }
         Plug 'vim-scripts/SyntaxRange'
         Plug 'vim-scripts/vimwiki'
+        Plug 'vim-scripts/ctags.vim'
         Plug 'w0rp/ale'
     call plug#end()
     colorscheme modified_slate
@@ -125,11 +126,12 @@ if $VIM_NONINTERACTIVE != 1
     nmap <space> <leader>
     nmap <leader>q :bd<CR>
     map <leader>l :Lines<CR>
+    map <leader>jb :Lines import pdb; pdb.set_trace()<CR>
     nmap <silent> <leader>t :call <SID>StripTrailingWhitespace()<CR>
     nmap <leader>g :YcmCompleter GoTo<CR>
     nnoremap <leader>k "zyiw :Rg <C-r>z<CR>
     nmap <leader>r :YcmCompleter GoToReferences<CR>
-    nmap <leader>f :FZF<CR>
+    nmap <leader>f :Files<CR>
     nmap <silent> <leader>aj :ALENextWrap<cr>
     nmap <silent> <leader>ak :ALEPreviousWrap<cr>
     nmap <leader>g "zyiw:execute 'silent! tag '.@z \| :silent! YcmCompleter GoTo<CR>
@@ -137,7 +139,8 @@ if $VIM_NONINTERACTIVE != 1
     nmap <leader>x :q!<CR>
     nmap <leader>m :Dispatch<CR>
     map <leader>/ <Plug>(easymotion-sn)
-    map <leader>j <Plug>(easymotion-overwin-f2)
+    " map <leader>j <Plug>(easymotion-overwin-f2)
+    map <leader>jt :BTags<CR>
     map <leader>J <Plug>(easymotion-overwin-line)
     map <leader>pv :Dispatch! lighton --pulse --duration 2000 -- remote-sync <CR>
     map <leader>pi :Dispatch! remote-sync; lighton --pulse --duration 2000 --index 2 -- remote-build inc <CR>
@@ -167,6 +170,7 @@ if $VIM_NONINTERACTIVE != 1
 
 
     " Options
+    set tags^=./.git/tags;
     set fillchars+=vert:│
     set hlsearch
     set autoread
@@ -209,14 +213,16 @@ if $VIM_NONINTERACTIVE != 1
 
     let g:NERDTreeIgnore=['\.pyc$', '\~$']
 
-    let g:ackprg = 'ag --nogroup --nocolor --column'
+    let g:ackprg = 'rg --nogroup --nocolor --column'
 
     "let g:ale_python_flake8_executable = 'python3'
     let g:ale_lint_on_text_changed = 'never'
     let g:ale_lint_on_enter = 0
     let g:ale_linters = {
-    \   'python': ['/usr/bin/pep8'],
+    \   'python': ['~/.local/bin/pylint'],
     \}
+    let b:ale_linters = ['~/.local/bin/pylint']
+    " \   'python': ['/usr/bin/pep8', '~/.local/bin/pylint'],
 
     let g:NERDTreeQuitOnOpen=1
 
@@ -230,6 +236,15 @@ if $VIM_NONINTERACTIVE != 1
     let g:jedi#force_py_version=3
     let g:pymode_rope = 0
     let g:jedi#show_call_signatures=1
+
+    command! -bang -nargs=? -complete=dir Files
+                \ call fzf#vim#files(<q-args>, {'options': ['--bind=ctrl-l:jump-accept', '--preview', 'bat --color=always {}']}, <bang>0)
+    command! -bang -nargs=? -complete=dir BTags
+    \ call fzf#vim#buffer_tags(<q-args>, {'options': ['--bind=ctrl-l:jump-accept']}, <bang>0)
+    command! -bang -nargs=? -complete=dir Rg
+                \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>),
+                \1, {'options': ['--bind=ctrl-l:jump', '--preview', 'rg-preview.sh {}']},
+                                     \ <bang>0)
 
     let g:fzf_buffers_jump = 1
 
@@ -254,30 +269,21 @@ if $VIM_NONINTERACTIVE != 1
           \ 'colorscheme': 'gruvbox',
           \ 'active': {
           \   'left': [ [ 'mode', 'paste' ],
-          \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'ale', 'pyhelper' ] ],
+          \             [ 'readonly', 'filename', 'modified', 'ale', 'tagbar' ] ],
           \   'right': [ [ 'lineinfo' ],
           \              [ 'percent' ],
           \              [ 'GetTestTarget', 'fileformat', 'fileencoding', 'filetype'],
           \            ],
           \ },
+          \ 'component': {
+          \   'tagbar': '%{tagbar#currenttag("%s", "", "f")}',
+          \ },
           \ 'component_function': {
           \   'gitbranch': 'fugitive#statusline',
           \   'ale': 'LinterStatus',
-          \   'pyhelper': 'TagInStatusLine',
           \   'GetTestTarget': 'GetTestTarget',
           \ },
           \ }
-
-    let g:ctrlp_custom_ignore = {
-      \ 'dir':  '\v[\/]\.(git|hg|svn|__pycache__)$',
-      \ 'file': '\v\.(exe|so|dll)$',
-      \ 'link': 'some_bad_symbolic_links',
-      \ }
-
-    let g:ctrlp_map = 'NONE'
-    let g:ctrlp_mruf_include = '*.REMEMBER*'
-    let g:ctrlp_mruf_max = 0
-    let g:ctrlp_mruf_save_on_update = 1
 
     let g:qf_auto_open_quickfix = 0
     let g:qf_auto_open_loclist = 0
@@ -301,9 +307,15 @@ if $VIM_NONINTERACTIVE != 1
         autocmd Syntax html call SyntaxRange#Include("```python", "```", "python")
         autocmd Syntax markdown call SyntaxRange#Include("```python", "```", "python")
         autocmd Syntax perl call SyntaxRange#Include("<<SQL;", "SQL", "sql")
+        autocmd FileType python nnoremap <buffer> <leader>pR :Focus 
+        autocmd FileType python nnoremap <buffer> <leader>pr :Dispatch<CR>
         autocmd FileType python nmap <buffer> yf [pfwvt(
         autocmd FileType python nmap <buffer> yc [pcwvt(
         autocmd FileType python nmap <buffer> yc [pcwvt(
+        autocmd FileType python nmap <leader>jd :Rg ^\\s*def 
+        autocmd FileType python nmap <buffer> <leader>jD "zyiw:Rg ^\\s*def <C-r>z<CR>
+        autocmd FileType python nmap <leader>jc :Rg ^\\s*class 
+        autocmd FileType python nmap <buffer> <leader>jC "zyiw:Rg ^\\s*class <C-r>z<CR>
         autocmd FileType python map <buffer> <F5> :call Autopep8()<CR>
         autocmd FileType python nnoremap <buffer> gm "zyiW :Pyimport <C-r>z<CR>
         autocmd FileType go nnoremap <leader>pb :Dispatch go build %<CR>
