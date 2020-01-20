@@ -243,7 +243,7 @@ if $VIM_NONINTERACTIVE != 1
     \ call fzf#vim#buffer_tags(<q-args>, {'options': ['--bind=ctrl-l:jump-accept']}, <bang>0)
     command! -bang -nargs=? -complete=dir Rg
                 \ call fzf#vim#grep("rg --column --line-number --no-heading --color=always --smart-case ".shellescape(<q-args>),
-                \1, {'options': ['--bind=ctrl-l:jump', '--preview', 'rg-preview.sh {}']},
+                \1, {'options': ['--bind=ctrl-l:jump', '--preview', '~/.vim/utils/rg-preview.sh {}']},
                                      \ <bang>0)
 
     let g:fzf_buffers_jump = 1
