@@ -1,1 +1,2 @@
-let b:ale_linters = ['flake8']
+let b:ale_linters = ['pylint', 'mypy']
+let b:python_mypy_options = "--strict"

@@ -135,7 +135,12 @@ if $VIM_NONINTERACTIVE != 1
     nmap <silent> <leader>aj :ALENextWrap<cr>
     nmap <silent> <leader>ak :ALEPreviousWrap<cr>
     nmap <leader>g "zyiw:execute 'silent! tag '.@z \| :silent! YcmCompleter GoTo<CR>
-    nmap <leader>c :ALELint<CR>
+    if has('win32')
+      nmap <leader>cf :let @*=substitute(expand("%:p"), "/", "\\", "g")<CR>
+    else
+      nmap <leader>cf :let @*=expand("%:p")<CR>
+    endif
+    nmap <leader>cc :ALELint<CR>
     nmap <leader>x :q!<CR>
     nmap <leader>m :Dispatch<CR>
     map <leader>/ <Plug>(easymotion-sn)
@@ -219,10 +224,9 @@ if $VIM_NONINTERACTIVE != 1
     let g:ale_lint_on_text_changed = 'never'
     let g:ale_lint_on_enter = 0
     let g:ale_linters = {
-    \   'python': ['~/.local/bin/pylint'],
+    \   'yaml': ['yamllint'],
     \}
-    let b:ale_linters = ['~/.local/bin/pylint']
-    " \   'python': ['/usr/bin/pep8', '~/.local/bin/pylint'],
+    let b:ale_linters = ['yamllint']
 
     let g:NERDTreeQuitOnOpen=1
 
@@ -319,6 +323,7 @@ if $VIM_NONINTERACTIVE != 1
         autocmd FileType python map <buffer> <F5> :call Autopep8()<CR>
         autocmd FileType python nnoremap <buffer> gm "zyiW :Pyimport <C-r>z<CR>
         autocmd FileType go nnoremap <leader>pb :Dispatch go build %<CR>
+        au BufRead,BufNewFile *.wiki setlocal textwidth=80
         "autocmd BufWriteCmd *.go ALEFix
 
         autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab
