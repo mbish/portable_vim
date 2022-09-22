@@ -1,3 +1,8 @@
+function PipeSelection(command) range
+  echo system('echo '.shellescape(join(getline(a:firstline, a:lastline), "\n")).'|'. a:command)
+endfunction
+com -range=% -nargs=1 PipeSelection :<line1>,<line2>call PipeSelection(<args>)
+
 "" could be generalized to include other file types
 function! RunTests() abort
     let g:test_target = expand("%")
@@ -13,23 +18,34 @@ function! GetTestTarget() abort
     return g:test_target
 endfunction
 
+function! GetMakeTarget() abort
+    return dispatch#make_focus(v:count > 1 ? 0 : v:count ? line(".") : -1)
+endfunction
+
+function! GetFocusTarget() abort
+    let haslnum = a:0 && a:1 >= 0
+    if exists('b:Dispatch') && !haslnum
+      let [what, why] = [b:Dispatch, 'Buffer local focus']
+    elseif exists('w:Dispatch') && !haslnum
+      let [what, why] = [w:Dispatch, 'Window local focus']
+    elseif exists('t:Dispatch') && !haslnum
+      let [what, why] = [t:Dispatch, 'Tab local focus']
+    elseif exists('g:Dispatch') && !haslnum
+      let [what, why] = [g:Dispatch, 'Global focus']
+    elseif exists('b:dispatch')
+      let [what, why] = [b:dispatch, 'Buffer default']
+    else
+      let [what, why] = ['--', (len(&l:makeprg) ? 'Buffer' : 'Global') . ' default']
+      let default = 1
+    endif
+    return what
+endfunction
+
 " call add(g:swap#default_keymappings, {'input': "\<C-k>", 'output': "\<Plug>(swap-mode-Esc)"})
 
 " Functions
 " function AutoTest()
 "     if exists(&g:test_focus)
-
-function! <SID>StripTrailingWhitespace()
-    " Preparation: save last search, and cursor position.
-    let l:_s=@/
-    let l:l = line('.')
-    let l:c = col('.')
-    " Do the business:
-    %s/\s\+$//e
-    " Clean up: restore previous search history, and cursor position
-    let @/=l:_s
-    call cursor(l:l, l:c)
-endfunction
 
 function! GetCommand(command)
     redir @*

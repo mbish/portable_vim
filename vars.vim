@@ -25,16 +25,32 @@ let g:pymode_rope = 0
 let g:jedi#show_call_signatures=1
 
 let g:UltiSnipsExpandTrigger='<c-a>'
-let g:UltiSnipsJumpForwardTrigger='<c-j>'
-let g:UltiSnipsJumpBackwardTrigger='<c-k>'
+let g:UltiSnipsJumpForwardTrigger='<c-l>'
+let g:UltiSnipsJumpBackwardTrigger='<c-h>'
 
-"let g:ale_python_flake8_executable = 'python3'
+" let g:ale_python_flake8_executable = 'python3'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
 let g:ale_linters = {
 \   'yaml': ['yamllint'],
+\   'sh': ['shellcheck'],
+\   'javascript': ['eslint'],
+\   'typescript': ['eslint'],
+\   'typescriptreact': ['eslint'],
+\   'c': ['clangd', 'clangtidy', 'flawfinder', 'cppcheck'],
 \}
-let b:ale_linters = ['yamllint']
+" let b:ale_linters = ['yamllint', 'shellcheck', 'govet', 'gobuild', 'gofmt']
+
+let g:ale_fixers = {
+\   'bash': ['shfmt'],
+\   'sh': ['shfmt'],
+\   'json': ['prettier'],
+\   'ruby': ['rubocop'],
+\   'javascript': ['prettier'],
+\   'typescript': ['prettier'],
+\   'typescriptreact': ['prettier'],
+\   'yaml': ['yamlfix'],
+\}
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))
@@ -56,7 +72,7 @@ let g:lightline = {
       \             [ 'readonly', 'filename', 'modified', 'ale', 'tagbar' ] ],
       \   'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
-      \              [ 'GetTestTarget', 'fileformat', 'fileencoding', 'filetype'],
+      \              [ 'GetTestTarget', 'GetFocusTarget', 'GetMakeTarget','fileformat', 'fileencoding', 'filetype'],
       \            ],
       \ },
       \ 'component': {
@@ -66,17 +82,25 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#statusline',
       \   'ale': 'LinterStatus',
       \   'GetTestTarget': 'GetTestTarget',
+      \   'GetMakeTarget': 'GetMakeTarget',
+      \   'GetFocusTarget': 'GetFocusTarget',
       \ },
       \ }
 
 let g:qf_auto_open_quickfix = 0
 let g:qf_auto_open_loclist = 0
 
-let g:ale_fixers = {
-\   'bash': ['shellharden --transform'],
-\   'sh': ['shellharden',' --transform'],
-\   'go': ['gofmt'],
-\   'json': ['prettier'],
-\}
-
 let g:fzf_buffers_jump = 1
+let g:vim_markdown_folding_disabled = 1
+let g:ycm_auto_hover = ''
+
+let g:ranger_map_keys = 0
+
+set updatetime=300
+set shortmess+=c
+set signcolumn=yes
+if has('nvim')
+      inoremap <silent><expr> <c-space> coc#refresh()
+else
+    inoremap <silent><expr> <c-@> coc#refresh()
+endif

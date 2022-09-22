@@ -1,0 +1,8 @@
+{
+  "pyright.enable": true,
+  "python.venvPath": "~/.virtualenvs",
+  "python.linting.enabled": false,
+  "python.disableDiagnostics": true,
+  "python.disableCompletion": false,
+  "diagnostic.displayByAle": true
+}
