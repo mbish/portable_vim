@@ -45,3 +45,6 @@ augroup qf
     autocmd!
     autocmd FileType qf set nobuflisted
 augroup END
+augroup templates
+    autocmd BufNewFile .projections.json 0r ~/.vim/templates/projections.json
+augroup END

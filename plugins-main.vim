@@ -1,15 +1,14 @@
+source ~/.vim/plugins-mim.vim
 Plug 'ap/vim-buftabline'
 Plug 'bps/vim-textobj-python'
 " Plug 'davidhalter/jedi-vim'
 Plug 'drmingdrmer/vim-toggle-quickfix'
-Plug 'easymotion/vim-easymotion'
 Plug 'haya14busa/vim-easyoperator-line'
 Plug 'itchyny/lightline.vim', { 'do': 'cp ~/.vim/custom/lightline.vim/gruvbox.vim autoload/lightline/colorscheme/gruvbox.vim' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'kana/vim-textobj-indent'
 Plug 'kana/vim-textobj-user'
-Plug 'machakann/vim-swap'
 Plug 'majutsushi/tagbar'
 Plug 'morhetz/gruvbox'
 " Plug 'nvie/vim-flake8'
@@ -18,11 +17,9 @@ Plug 'morhetz/gruvbox'
 Plug 'sirVer/ultisnips'
 Plug 'tell-k/vim-autopep8'
 Plug 'tmux-plugins/vim-tmux-focus-events'
-Plug 'tommcdo/vim-exchange'
 Plug 'tomtom/tcomment_vim'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
 " Plug 'valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'vim-scripts/SyntaxRange'
 Plug 'vim-scripts/vimwiki'
@@ -39,6 +36,7 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'tpope/vim-projectionist'
 " Plug 'thaerkh/vim-workspace'
 Plug 'LnL7/vim-nix'
+Plug 'rust-lang/rust.vim'
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
