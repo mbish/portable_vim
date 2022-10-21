@@ -30,6 +30,8 @@
       overlays = [
       ];
     };
+
+    # TODO fix ALE's access to various linting tools
     vim = vim_configurable.customize {
           name = "vim";
           vimrcConfig.customRC = builtins.concatStringsSep "\n" [
@@ -46,6 +48,7 @@
             let g:gruvbox_contrast_dark='hard'
             let g:gruvbox_italic=1
             let g:jedi#goto_stubs_command = 0
+            let g:ranger_command_override = "${pkgs.ranger}/bin/ranger"
             colorscheme gruvbox
             ''
             (builtins.readFile ./functions.vim)
