@@ -91,13 +91,16 @@ nnoremap <leader>f :Files<CR>
 " nmap <leader>g "zyiw:execute 'silent! tag '.@z \| :silent! YcmCompleter GoTo<CR>
 nnoremap <leader>g :GFiles<CR>
 " nmap <leader>g :YcmCompleter GoTo<CR>
-nmap <leader>m :Dispatch<CR>
-nmap <leader>M :Dispatch!<CR>
+nmap <leader>m :Make<CR>
+nmap <leader>M :Make!<CR>
+nmap <leader>d :Dispatch<CR>
 nmap <leader>q :bd<CR>
 nmap <leader>r :YcmCompleter GoToReferences<CR>
 nmap <leader>D <plug>(YCMHover)
 nmap <leader>x :q!<CR>
 nmap <silent> <leader>aj :ALENextWrap<cr>
+nmap <silent> <leader>ad :let g:ale_fix_on_save=0<cr>:echo "ALE fixing globally disabled"<CR>
+nmap <silent> <leader>ae :let g:ale_fix_on_save=1<cr>:echo "ALE fixing globally enabled"<CR>
 nmap <silent> <leader>ak :ALEPreviousWrap<cr>
 
 nmap <silent> <leader>t :call <SID>StripTrailingWhitespace()<CR>

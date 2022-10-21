@@ -1,0 +1,59 @@
+{
+  "nodes": {
+    "nixpkgs": {
+      "locked": {
+        "lastModified": 1666333455,
+        "narHash": "sha256-oHXIeLB/sPWxKNcSdV1DQi1ddNVoJ17T1yDiMMeygL4=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "93e0ac196106dce51878469c9a763c6233af5c57",
+        "type": "github"
+      },
+      "original": {
+        "id": "nixpkgs",
+        "type": "indirect"
+      }
+    },
+    "ranger-vim-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1572447444,
+        "narHash": "sha256-6ut7u6AwtyYbHLHa2jelf5PkbtlfHvuHfWRL5z1CTUQ=",
+        "owner": "francoiscabrol",
+        "repo": "ranger.vim",
+        "rev": "91e82debdf566dfaf47df3aef0a5fd823cedf41c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "francoiscabrol",
+        "repo": "ranger.vim",
+        "type": "github"
+      }
+    },
+    "root": {
+      "inputs": {
+        "nixpkgs": "nixpkgs",
+        "ranger-vim-src": "ranger-vim-src",
+        "vim-buftabline-src": "vim-buftabline-src"
+      }
+    },
+    "vim-buftabline-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1607883581,
+        "narHash": "sha256-vmznVGpM1QhkXpRHg0mEweolvCA9nAOuALGN5U6dRO8=",
+        "owner": "ap",
+        "repo": "vim-buftabline",
+        "rev": "73b9ef5dcb6cdf6488bc88adb382f20bc3e3262a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ap",
+        "repo": "vim-buftabline",
+        "type": "github"
+      }
+    }
+  },
+  "root": "root",
+  "version": 7
+}

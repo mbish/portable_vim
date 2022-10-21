@@ -29,8 +29,8 @@ augroup vimrc
     autocmd FileType python set makeprg=pytest
     autocmd FileType go nnoremap <leader>pb :Dispatch go build %<CR>
     au BufRead,BufNewFile *.wiki setlocal textwidth=80
-    autocmd FileType python,javscript,typescript,typescriptreact
-        \ autocmd BufWritePre <buffer> ALEFix
+    "autocmd FileType python,javscript,typescript,typescriptreact,rust
+    "    \ autocmd BufWritePre <buffer> ALEFix
     "autocmd BufWriteCmd *.go ALEFix
 
     autocmd BufNewFile,BufReadPost *.coffee setl shiftwidth=2 expandtab

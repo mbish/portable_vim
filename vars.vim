@@ -28,9 +28,12 @@ let g:UltiSnipsExpandTrigger='<c-a>'
 let g:UltiSnipsJumpForwardTrigger='<c-l>'
 let g:UltiSnipsJumpBackwardTrigger='<c-h>'
 
+let g:local_vimrc = [".vimrc", ".local.vim", "_vimrc_local.vim"]
+
 " let g:ale_python_flake8_executable = 'python3'
 let g:ale_lint_on_text_changed = 'never'
 let g:ale_lint_on_enter = 0
+let g:ale_fix_on_save = 1
 let g:ale_linters = {
 \   'yaml': ['yamllint'],
 \   'sh': ['shellcheck'],
@@ -50,6 +53,7 @@ let g:ale_fixers = {
 \   'typescript': ['prettier'],
 \   'typescriptreact': ['prettier'],
 \   'yaml': ['yamlfix'],
+\   'rust': ['rustfmt'],
 \}
 
 function! LinterStatus() abort

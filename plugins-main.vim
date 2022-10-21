@@ -37,6 +37,8 @@ Plug 'tpope/vim-projectionist'
 " Plug 'thaerkh/vim-workspace'
 Plug 'LnL7/vim-nix'
 Plug 'rust-lang/rust.vim'
+" Plug 'LucHermitte/lh-vim-lib'
+" Plug 'LucHermitte/local_vimrc'
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
