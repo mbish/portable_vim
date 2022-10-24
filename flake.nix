@@ -78,6 +78,9 @@
               tagbar
               vim-buftabline
               ranger-vim
+              vim-nix
+              vimwiki
+              rust-vim
             ];
           };
       };
