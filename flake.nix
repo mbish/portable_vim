@@ -43,7 +43,7 @@
             if has('python3')
             endif
 
-            syntax on
+            ${(builtins.readFile ./colors/modified_slate.vim)}
             colorscheme modified_slate
             let g:gruvbox_contrast_dark='hard'
             let g:gruvbox_italic=1
@@ -89,6 +89,7 @@
           pkgs.ranger
           pkgs.fzf
           pkgs.python3
+          pkgs.bat
         ] ++ vim.buildInputs; 
       } // {
         propagatedBuildInputs = [
