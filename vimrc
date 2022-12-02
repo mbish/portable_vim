@@ -38,6 +38,9 @@ if $VIM_NONINTERACTIVE != 1
     source ~/.vim/command.vim
     source ~/.vim/aucmds.vim
     source ~/.vim/highlight.vim
+    if has('nvim')
+        source ~/.vim/nvim.lua
+    endif
 
     " Allow for local overrides
     if filereadable(expand('~/.local.vim'))

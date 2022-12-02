@@ -43,6 +43,13 @@ let g:ale_linters = {
 \   'c': ['clangd', 'clangtidy', 'flawfinder', 'cppcheck'],
 \}
 " let b:ale_linters = ['yamllint', 'shellcheck', 'govet', 'gobuild', 'gofmt']
+"
+call ale#linter#Define('gdscript', {
+\   'name': 'godot',
+\   'lsp': 'socket',
+\   'address': '127.0.0.1:6008',
+\   'project_root': 'project.godot',
+\})
 
 let g:ale_fixers = {
 \   'bash': ['shfmt'],
@@ -55,6 +62,9 @@ let g:ale_fixers = {
 \   'yaml': ['yamlfix'],
 \   'rust': ['rustfmt'],
 \}
+if has('nvim')
+    let g:ale_enabled=0
+endif
 
 function! LinterStatus() abort
     let l:counts = ale#statusline#Count(bufnr(''))

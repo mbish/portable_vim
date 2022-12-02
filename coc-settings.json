@@ -4,5 +4,12 @@
   "python.linting.enabled": false,
   "python.disableDiagnostics": true,
   "python.disableCompletion": false,
-  "diagnostic.displayByAle": true
+  "diagnostic.displayByAle": true,
+  "languageserver": {
+    "godot": {
+      "host": "127.0.0.1",
+      "filetypes": ["gdscript"],
+      "port": 6008
+    }
+  }
 }

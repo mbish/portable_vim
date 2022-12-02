@@ -10,100 +10,106 @@
       url = "github:ap/vim-buftabline";    
       flake = false;
     };
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+    };
   };
 
-  outputs = { self, nixpkgs, ranger-vim-src, vim-buftabline-src }:
-    let
-    vim_configurable = pkgs.vim_configurable.override { python3 = pkgs.python3; };
-    ranger-vim = pkgs.vimUtils.buildVimPlugin {
-      name = "ranger-vim";
-      src = ranger-vim-src;
-    };
-    vim-buftabline = pkgs.vimUtils.buildVimPlugin {
-      name = "vim-buftabline";
-      src = vim-buftabline-src;
-    };
-    system = "x86_64-linux";
-    pkgs = import nixpkgs {
-      inherit system;
-      config = {allowUnfree = true;};
-      overlays = [
-      ];
-    };
-
-    # TODO fix ALE's access to various linting tools
-    vim = vim_configurable.customize {
-          name = "vim";
-          vimrcConfig.customRC = builtins.concatStringsSep "\n" [
-           ''
-            scriptencoding utf-8
-            set nomodeline
-
-            " Make python3 preeminent
-            if has('python3')
-            endif
-
-            ${(builtins.readFile ./colors/modified_slate.vim)}
-            colorscheme modified_slate
-            let g:gruvbox_contrast_dark='hard'
-            let g:gruvbox_italic=1
-            let g:jedi#goto_stubs_command = 0
-            let g:ranger_command_override = "${pkgs.ranger}/bin/ranger"
-            colorscheme gruvbox
-            ''
-            (builtins.readFile ./functions.vim)
-            (builtins.readFile ./keys.vim)
-            (builtins.readFile ./options.vim)
-            (builtins.readFile ./vars.vim)
-            (builtins.readFile ./command.vim)
-            (builtins.readFile ./aucmds.vim)
-            (builtins.readFile ./highlight.vim)
-          ];
-          vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
-            start = [
-              fzf-vim
-              vim-easymotion
-              vim-swap
-              gruvbox
-              ultisnips
-              vim-exchange
-              vim-dispatch
-              vim-fugitive
-              vim-surround
-              ale
-              vim-go
-              vim-markdown
-              vim-yaml
-              vim-projectionist
-              tagbar
-              vim-buftabline
-              ranger-vim
-              vim-nix
-              vimwiki
-              rust-vim
-            ];
-          };
+  outputs = { self, nixpkgs, ranger-vim-src, vim-buftabline-src, flake-utils }:
+    flake-utils.lib.eachDefaultSystem (system:
+      let
+      vim_configurable = pkgs.vim_configurable.override { python3 = pkgs.python3; };
+      ranger-vim = pkgs.vimUtils.buildVimPlugin {
+        name = "ranger-vim";
+        src = ranger-vim-src;
       };
-    in
-  {
-    packages.${system} = rec {
-      default = vim.override {
-        buildInputs = [ 
-          pkgs.ranger
-          pkgs.fzf
-          pkgs.python3
-          pkgs.bat
-        ] ++ vim.buildInputs; 
-      } // {
-        propagatedBuildInputs = [
-          pkgs.perl
+      vim-buftabline = pkgs.vimUtils.buildVimPlugin {
+        name = "vim-buftabline";
+        src = vim-buftabline-src;
+      };
+      pkgs = import nixpkgs {
+        inherit system;
+        config = {allowUnfree = true;};
+        overlays = [
         ];
       };
-    };
-    devShells.${system} = {
-      default = pkgs.mkShell {
-        buildInputs = [ vim ];
+
+      # TODO fix ALE's access to various linting tools
+      vim = vim_configurable.customize {
+            name = "vim";
+            vimrcConfig.customRC = builtins.concatStringsSep "\n" [
+             ''
+              scriptencoding utf-8
+              set nomodeline
+
+              " Make python3 preeminent
+              if has('python3')
+              endif
+
+              ${(builtins.readFile ./colors/modified_slate.vim)}
+              colorscheme modified_slate
+              let g:gruvbox_contrast_dark='hard'
+              let g:gruvbox_italic=1
+              let g:jedi#goto_stubs_command = 0
+              let g:ranger_command_override = "${pkgs.ranger}/bin/ranger"
+              colorscheme gruvbox
+              ''
+              (builtins.readFile ./functions.vim)
+              (builtins.readFile ./keys.vim)
+              (builtins.readFile ./options.vim)
+              (builtins.readFile ./vars.vim)
+              (builtins.readFile ./command.vim)
+              (builtins.readFile ./aucmds.vim)
+              (builtins.readFile ./highlight.vim)
+            ];
+            vimrcConfig.packages.myVimPackage = with pkgs.vimPlugins; {
+              start = [
+                ale
+                direnv-vim
+                fzf-vim
+                gruvbox
+                ranger-vim
+                rust-vim
+                tagbar
+                ultisnips
+                vim-buftabline
+                vim-dispatch
+                vim-easymotion
+                vim-exchange
+                vim-fugitive
+                vim-go
+                vim-markdown
+                vim-nix
+                vim-projectionist
+                vim-surround
+                vim-swap
+                vim-yaml
+                vimwiki
+              ];
+            };
+        };
+      in
+    {
+      packages = rec {
+        default = vim.override {
+          buildInputs = [ 
+            pkgs.ranger
+            pkgs.fzf
+            pkgs.python3
+            pkgs.bat
+            pkgs.zsh
+          ] ++ vim.buildInputs; 
+        } // {
+          propagatedBuildInputs = [
+            pkgs.perl
+          ];
+        };
       };
-    };
-  };
+      devShells = {
+        default = pkgs.mkShell {
+          buildInputs = [ vim ];
+        };
+      };
+    }
+  );
 }

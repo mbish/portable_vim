@@ -127,3 +127,6 @@ map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans
 nnoremap <F7> :mks! /tmp/session.vim \| :wqa \| exit<CR>
 nmap <F8> :let root = getcwd()<CR>:exec system("cat /tmp/session.vim \| grep  -P 'badd\|cd'") \| exec 'cd ' . root<CR>
 
+if has('nvim')
+    nmap <leader>rn :lua vim.lsp.buf.rename()<cr>
+endif

@@ -30,7 +30,6 @@ Plug 'plasticboy/vim-markdown'
 Plug 'tarekbecker/vim-yaml-formatter'
 Plug 'sirtaj/vim-openscad'
 Plug 'francoiscabrol/ranger.vim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'tartansandal/vim-compiler-pytest'
 " Plug 'vim-scripts/c.vim'
 Plug 'tpope/vim-projectionist'
@@ -39,6 +38,16 @@ Plug 'LnL7/vim-nix'
 Plug 'rust-lang/rust.vim'
 " Plug 'LucHermitte/lh-vim-lib'
 " Plug 'LucHermitte/local_vimrc'
+Plug 'direnv/direnv.vim'
+Plug 'habamax/vim-godot'
+
+if has('nvim')
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    Plug 'neovim/nvim-lspconfig'
+    Plug 'williamboman/nvim-lsp-installer'
+else
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
+endif
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
