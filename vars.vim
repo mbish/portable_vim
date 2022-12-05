@@ -44,12 +44,14 @@ let g:ale_linters = {
 \}
 " let b:ale_linters = ['yamllint', 'shellcheck', 'govet', 'gobuild', 'gofmt']
 "
-call ale#linter#Define('gdscript', {
-\   'name': 'godot',
-\   'lsp': 'socket',
-\   'address': '127.0.0.1:6008',
-\   'project_root': 'project.godot',
-\})
+if has_key(plugs, 'ale')
+    call ale#linter#Define('gdscript', {
+    \   'name': 'godot',
+    \   'lsp': 'socket',
+    \   'address': '127.0.0.1:6008',
+    \   'project_root': 'project.godot',
+    \})
+endif
 
 let g:ale_fixers = {
 \   'bash': ['shfmt'],
