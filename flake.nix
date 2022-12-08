@@ -54,8 +54,8 @@
               let g:ranger_command_override = "${pkgs.ranger}/bin/ranger"
               colorscheme gruvbox
 
-              # hack to assure scripts that this plugin exists
-              # in this version
+              " hack to assure scripts that this plugin exists
+              " in this version
               let plugs = {'coc.nvim': 1}
               ''
               (builtins.readFile ./functions.vim)
