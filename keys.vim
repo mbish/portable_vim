@@ -37,7 +37,8 @@ onoremap <C-k> <Esc>l
 vmap / "zy:Rg "<C-r>z"<CR>
 vmap s :sort<CR>
 xnoremap <C-k> <Esc>l
-if has_key(plugs, 'coc.vim')
+
+if has_key(plugs, 'coc.nvim')
     inoremap <expr> <cr> coc#pum#visible() ? coc#_select_confirm() : "\<CR>"
 endif
 if has('nvim')

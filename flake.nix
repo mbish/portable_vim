@@ -53,6 +53,10 @@
               let g:jedi#goto_stubs_command = 0
               let g:ranger_command_override = "${pkgs.ranger}/bin/ranger"
               colorscheme gruvbox
+
+              # hack to assure scripts that this plugin exists
+              # in this version
+              let plugs = {'coc.nvim': 1}
               ''
               (builtins.readFile ./functions.vim)
               (builtins.readFile ./keys.vim)
@@ -84,7 +88,9 @@
                 vim-surround
                 vim-swap
                 vim-yaml
+                vim-plug
                 vimwiki
+                coc-nvim
               ];
             };
         };

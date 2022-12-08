@@ -44,7 +44,8 @@ let g:ale_linters = {
 \}
 " let b:ale_linters = ['yamllint', 'shellcheck', 'govet', 'gobuild', 'gofmt']
 "
-if has_key(plugs, 'ale')
+
+if exists('plugs') && has_key(plugs, 'ale')
     call ale#linter#Define('gdscript', {
     \   'name': 'godot',
     \   'lsp': 'socket',
