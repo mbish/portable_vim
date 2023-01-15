@@ -104,10 +104,13 @@
             pkgs.python3
             pkgs.bat
             pkgs.zsh
+            pkgs.statix
+            pkgs.nixpkgs-fmt
           ] ++ vim.buildInputs; 
         } // {
           propagatedBuildInputs = [
             pkgs.perl
+            pkgs.node
           ];
         };
       };

@@ -41,6 +41,7 @@ let g:ale_linters = {
 \   'typescript': ['eslint'],
 \   'typescriptreact': ['eslint'],
 \   'c': ['clangd', 'clangtidy', 'flawfinder', 'cppcheck'],
+\   'nix': ['nix', 'statix'],
 \}
 " let b:ale_linters = ['yamllint', 'shellcheck', 'govet', 'gobuild', 'gofmt']
 "
@@ -64,6 +65,7 @@ let g:ale_fixers = {
 \   'typescriptreact': ['prettier'],
 \   'yaml': ['yamlfix'],
 \   'rust': ['rustfmt'],
+\   'nix': ['nixpkgs-fmt'],
 \}
 if has('nvim')
     let g:ale_enabled=0
