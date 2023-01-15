@@ -110,7 +110,7 @@
         } // {
           propagatedBuildInputs = [
             pkgs.perl
-            pkgs.node
+            pkgs.nodejs
           ];
         };
       };
