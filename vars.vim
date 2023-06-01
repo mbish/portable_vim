@@ -42,9 +42,12 @@ let g:ale_linters = {
 \   'typescriptreact': ['eslint'],
 \   'c': ['clangd', 'clangtidy', 'flawfinder', 'cppcheck'],
 \   'nix': ['nix', 'statix'],
+\   'haskell': ['hlint', 'stack-build'],
 \}
 " let b:ale_linters = ['yamllint', 'shellcheck', 'govet', 'gobuild', 'gofmt']
 "
+"
+let g:ormolu_options=["--no-cabal"]
 
 if exists('plugs') && has_key(plugs, 'ale')
     call ale#linter#Define('gdscript', {

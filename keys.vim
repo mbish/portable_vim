@@ -97,9 +97,10 @@ nnoremap <leader>g :GFiles<CR>
 nmap <leader>m :Make<CR>
 nmap <leader>M :Make!<CR>
 nmap <leader>d :Dispatch<CR>
+nmap <leader>D :Dispatch!<CR>
 nmap <leader>q :bd<CR>
 nmap <leader>r :YcmCompleter GoToReferences<CR>
-nmap <leader>D <plug>(YCMHover)
+" nmap <leader>D <plug>(YCMHover
 nmap <leader>x :q!<CR>
 nmap <silent> <leader>aj :ALENextWrap<cr>
 nmap <silent> <leader>ad :let g:ale_fix_on_save=0<cr>:echo "ALE fixing globally disabled"<CR>

@@ -10,6 +10,18 @@
       "host": "127.0.0.1",
       "filetypes": ["gdscript"],
       "port": 6008
+    },
+    "haskell": {
+      "command": "haskell-language-server-wrapper",
+      "args": ["--lsp"],
+      "rootPatterns": [
+        ".stack.yaml",
+        ".hie-bios",
+        "BUILD.bazel",
+        "cabal.config",
+        "package.yaml"
+      ],
+      "filetypes": ["hs", "lhs", "haskell"]
     }
   }
 }
